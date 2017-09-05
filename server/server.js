@@ -7,12 +7,20 @@ const passport = require('passport');
 const passportConfig = require('./services/auth');
 const MongoStore = require('connect-mongo')(session);
 const schema = require('./schema/schema');
+const config = require('config');
 
 // Create a new Express application
 const app = express();
 
-// Replace with your mongoLab URI
-const MONGO_URI = '';
+
+// build host string from config file
+const host = config.get('dbConfig.host');
+const user = config.get('dbConfig.user');
+const secret = config.get('dbConfig.secret');
+const db = config.get('dbConfig.dbName');
+const port = config.get('dbConfig.port')
+const MONGO_URI = 'mongodb://' + user + ':' + secret + '@' + host + ':' + port + '/' + db;
+
 
 // Mongoose's built in promise library is deprecated, replace it with ES2015 Promise
 mongoose.Promise = global.Promise;
