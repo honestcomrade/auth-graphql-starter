@@ -21,7 +21,6 @@ const db = config.get('dbConfig.dbName');
 const port = config.get('dbConfig.port')
 const MONGO_URI = 'mongodb://' + user + ':' + secret + '@' + host + ':' + port + '/' + db;
 
-
 // Mongoose's built in promise library is deprecated, replace it with ES2015 Promise
 mongoose.Promise = global.Promise;
 
