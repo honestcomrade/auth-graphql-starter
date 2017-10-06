@@ -12,6 +12,7 @@ class SignupForm extends Component{
   };
 
   componentWillUpdate(nextProps) {
+    // send not newly signedup user to dashboard
     if(!this.props.data.user && nextProps.data.user){
       hashHistory.push('/dashboard');
     }
@@ -22,7 +23,9 @@ class SignupForm extends Component{
       variables: { email, password },
       refetchQueries: [{ query }]
     }).catch(res => { 
+      // catch errors int he response
       const errors = res.graphQLErrors.map(error => error.message);
+      // add them to the state with ES6 candy, to return to user
       this.setState({ errors });
     });
   }
@@ -39,6 +42,8 @@ class SignupForm extends Component{
   }
 }
 
+// wierd syntax to wrap the form with 
+// a mutation and query for refetch
 export default graphql(query)(
   graphql(mutation)(SignupForm)
 );

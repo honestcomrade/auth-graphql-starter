@@ -13,6 +13,7 @@ import requireAuth from './components/requireAuth';
 const networkInterface = createNetworkInterface({
   uri: '/graphql',
   opts: {
+    // makes the request do something in the backend?
     credentials: 'same-origin'
   }
 });
@@ -24,16 +25,18 @@ const client = new ApolloClient({
 
 const Root = () => {
   return (
+    // wraps everything in the apolloClient
     <ApolloProvider client={ client }>
       <Router history={ hashHistory }>
         <Route path="/" component={ App }>
           <Route path="/login" component={ LoginForm } />
           <Route path="/signup" component={ SignupForm } />
+          {/* wrap the dashboard in the Auth component */}
           <Route path="/dashboard" component={ requireAuth(Dashboard) } />
         </Route>
       </Router>
     </ApolloProvider>
   );
 };
-
+// entry component
 ReactDOM.render(<Root />, document.querySelector('#root'));
