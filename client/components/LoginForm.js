@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo';
+import { hashHistory } from 'react-router';
 import AuthForm from './AuthForm';
 import mutation from '../mutations/Login';
 import query from '../queries/currentUser'; 
@@ -11,8 +12,9 @@ class LoginForm extends Component{
   }
 
   componentWillUpdate(nextProps) {
-    console.log("PROPS:", this.props);
-    console.log("PROPS:", nextProps);
+    if (!this.props.data.user && nextProps.data.user) {
+      hashHistory.push('/dashboard');
+    }
   }
 
   onSubmit({ email, password }) {
