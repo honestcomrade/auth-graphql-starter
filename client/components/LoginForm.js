@@ -2,12 +2,17 @@ import React, { Component } from 'react'
 import { graphql } from 'react-apollo';
 import AuthForm from './AuthForm';
 import mutation from '../mutations/Login';
-import query from '../queries/currentUser'
+import query from '../queries/currentUser'; 
 
 class LoginForm extends Component{
   constructor(props) {
     super(props);
     this.state = { errors: [] };
+  }
+
+  componentWillUpdate(nextProps) {
+    console.log("PROPS:", this.props);
+    console.log("PROPS:", nextProps);
   }
 
   onSubmit({ email, password }) {
@@ -32,4 +37,6 @@ class LoginForm extends Component{
   }
 }
 
-export default graphql(mutation)(LoginForm);
+export default graphql(query)(
+  graphql(mutation)(LoginForm)
+);
